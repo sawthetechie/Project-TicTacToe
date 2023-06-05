@@ -61,7 +61,9 @@ let check = (Arr, currentName)=>{
                     if(rowCheck(Arr,row1) || rowCheck(Arr,row2)|| rowCheck(Arr,row3)){
                         rowCheckValue = true;
                     }
-                    console.log(rowCheckValue);
+                    else{
+                        break;
+                    }
                 }
                 differenceArr.push(difference);
                 setTimeout(()=>{
