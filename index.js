@@ -3,9 +3,15 @@ let circleArr = [];
 let crossArr = [];
 let clickedArr =[];
 let differenceArr = [];
-let row1 = ["1","2","3"];
-let row2 = ["4","5","6"];
-let row3 = ["7","8","9"];
+let correctBox = [ ["1","2","3"],
+["4","5","6"],
+["7","8","9"],
+["1","4","7"],
+["2","5","8"],
+["3","6","9"],
+["1","5","9"],
+["3","5","7"] ];
+
 let turn = 1;
 
 board.addEventListener("click",(event)=>{
@@ -27,49 +33,27 @@ board.addEventListener("click",(event)=>{
         }
         turn++;
     }
-    console.log(circleArr);
-    console.log(crossArr);
-    console.log(clickedArr);
-    console.log(differenceArr);
+    console.log("circle",circleArr);
+    console.log("cross",crossArr);
+    console.log("cliked",clickedArr);
+    console.log("diff",differenceArr);
 })
 
-let rowCheck =(Arr,rowArr)=>{
+let containsCheck =(Arr,rowArr)=>{
     const containsAll = rowArr.every(element => {
         return Arr.includes(element);
     });
     return containsAll;
 }
 
+
 let check = (Arr, currentName)=>{
-    differenceArr = [];
-    let rowCheckValue =false;
-    let colCheckValue =false;
-    for(let i=0; i<=Arr.length-1; i++){
-        for(let j=i; j<=Arr.length-1; j++){
-            if(i===j){
-                continue;
-            }
-            let difference = Arr[i] - Arr[j];
-            if(difference<=0){
-                difference = -difference;
-            }
-            if(!differenceArr.includes(difference)){
-                differenceArr.push(difference);
-            }
-            else{
-                if(difference == 1){
-                    if(rowCheck(Arr,row1) || rowCheck(Arr,row2)|| rowCheck(Arr,row3)){
-                        rowCheckValue = true;
-                    }
-                    else{
-                        break;
-                    }
-                }
-                differenceArr.push(difference);
-                setTimeout(()=>{
-                    alert(`${currentName} Won`);
-                },150)
-            }
+    for(i=0;i<=correctBox.length-1;i++){
+        let checkValue = containsCheck(Arr,correctBox[i]);
+        if(checkValue == true){
+            setTimeout(()=>{
+                alert(`${currentName} Won`);
+            },150);
         }
     }
 
